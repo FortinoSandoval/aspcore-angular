@@ -2,4 +2,6 @@
 
 dotnet build
 
-dotnet run
+cd ClientApp && npm start
+
+dotnet watch run
