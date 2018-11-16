@@ -22,8 +22,9 @@ namespace aspcore_angular
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<AppDbContext>(options => options.UseSqlServer("..."));
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+      services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
 
       // In production, the Angular files will be served from this directory
       services.AddSpaStaticFiles(configuration =>
