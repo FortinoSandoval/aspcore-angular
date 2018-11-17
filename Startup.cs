@@ -23,7 +23,7 @@ namespace aspcore_angular
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-      services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+      services.AddDbContext<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("Default")));
 
 
       // In production, the Angular files will be served from this directory
