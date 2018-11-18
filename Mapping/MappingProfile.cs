@@ -10,6 +10,8 @@ namespace aspcore_angular.Mapping
     {
       CreateMap<Make, MakeResource>();
       CreateMap<Model, ModelResource>();
+      CreateMap<Feature, FeatureResource>();
+
     }
   }
 }
