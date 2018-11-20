@@ -20,6 +20,9 @@ namespace aspcore_angular.Controllers
       this.context = context;
     }
 
+    /// <summary>
+    /// Get all the vehicles features.
+    /// </summary>
     [HttpGet("/api/features")]
     public async Task<IEnumerable<FeatureResource>> GetFeatures()
     {

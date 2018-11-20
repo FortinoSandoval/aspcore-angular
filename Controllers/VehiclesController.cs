@@ -19,6 +19,10 @@ namespace aspcore_angular.Controllers
       this.mapper = mapper;
 
     }
+
+    /// <summary>
+    /// Create a new vehicle entry
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> CreateVehicle([FromBody]VehicleResource vehicleResource)
     {

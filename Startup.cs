@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
+using System.IO;
+using System;
 
 namespace aspcore_angular
 {
@@ -38,7 +41,25 @@ namespace aspcore_angular
       // Register the Swagger generator, defining 1 or more Swagger documents
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new Info { Title = "Vehicles API", Version = "v1" });
+        c.SwaggerDoc("v1", new Info
+        {
+          Version = "v1",
+          Title = "Vehicles API",
+          Description = "Vehicles APP with Asp.net Core"
+        });
+
+        c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+        {
+          Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+          Name = "Authorization",
+          In = "header",
+          Type = "apiKey"
+        });
+
+        // Set the comments path for the Swagger JSON and UI.
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        c.IncludeXmlComments(xmlPath);
       });
     }
 
