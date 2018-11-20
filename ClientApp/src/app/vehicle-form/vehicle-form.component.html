@@ -2,43 +2,66 @@
 <form>
   <div class="form-group">
     <label for="make">Make</label>
-    <select id="make" class="form-control" (change)="onMakeChange()" [(ngModel)]="vehicle.make" name="make">
+    <select
+      id="make"
+      class="form-control"
+      (change)="onMakeChange()"
+      [(ngModel)]="vehicle.make"
+      name="make"
+    >
       <option value=""></option>
-      <option *ngFor="let m of makes" value="{{ m.id }}">{{m.name}}</option>
+      <option *ngFor="let m of makes" value="{{ m.id }}">{{ m.name }}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="model">Model</label>
-    <select id="model" class="form-control">
+    <select
+      id="model"
+      name="model"
+      [(ngModel)]="model.ModelId"
+      class="form-control"
+    >
       <option value=""></option>
       <option *ngFor="let m of models" value="{{ m.id }}">{{ m.name }}</option>
     </select>
   </div>
   <p>Is this vehicle registered?</p>
   <label name="isRegistered" for="registered" class="radio-inline">
-    <input type="radio" value="true" id="registered">Yes
+    <input
+      type="radio"
+      [(ngModel)]="model.isRegistered"
+      value="true"
+      name="registered"
+      id="registered"
+    />Yes
   </label>
   <label name="isRegistered" for="notRegistered" class="radio-inline">
-    <input type="radio" value="false" id="notRegistered">No
+    <input
+      type="radio"
+      [(ngModel)]="model.isRegistered"
+      value="false"
+      id="notRegistered"
+      name="noRegistered"
+    />No
   </label>
   <h2>Features</h2>
   <div *ngFor="let f of features" class="checkbox">
     <label for="feature{{ f.id }}">
-      <input type="checkbox" id="feature{{ f.id }}"> {{ f.name }}
+      <input type="checkbox" id="feature{{ f.id }}" /> {{ f.name }}
     </label>
   </div>
   <h2>Contact</h2>
   <div class="form-group">
     <label for="contactName">Name</label>
-    <input id="contactName" type="text" class="form-control">
+    <input id="contactName" type="text" class="form-control" />
   </div>
   <div class="form-group">
     <label for="contactPhone">Phone</label>
-    <input id="contactPhone" type="text" class="form-control">
+    <input id="contactPhone" type="text" class="form-control" />
   </div>
   <div class="form-group">
     <label for="contactEmail">Email</label>
-    <input id="contactEmail" type="text" class="form-control">
+    <input id="contactEmail" type="text" class="form-control" />
   </div>
-  <button class="btn btn-primary">Save</button>
+  <button (click)="sendVehicle()" class="btn btn-primary">Save</button>
 </form>

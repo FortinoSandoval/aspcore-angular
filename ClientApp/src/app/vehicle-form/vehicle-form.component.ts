@@ -11,6 +11,7 @@ export class VehicleFormComponent implements OnInit {
   models: any[];
   features: any[];
   vehicle: any = {};
+  model: any = {};
 
   constructor(private vehicleService: VehicleService) { }
 
@@ -25,6 +26,10 @@ export class VehicleFormComponent implements OnInit {
   onMakeChange() {
     var selectedMake = this.makes.find(m => m.id == this.vehicle.make);
     this.models = selectedMake ? selectedMake.models : [];
+  }
+
+  sendVehicle() {
+    console.log(this.model);
   }
 
 }
