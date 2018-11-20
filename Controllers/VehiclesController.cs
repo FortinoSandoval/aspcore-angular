@@ -5,6 +5,7 @@ using aspcore_angular.Models;
 using aspcore_angular.Persistence;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace aspcore_angular.Controllers
 {
@@ -40,13 +41,20 @@ namespace aspcore_angular.Controllers
       return Ok(result);
     }
 
+    /// <summary>
+    /// Update vehicle entry data
+    /// </summary>
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateVehicle(int id, [FromBody]VehicleResource vehicleResource)
     {
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
-      var vehicle = await context.Vehicles.FindAsync(id);
+      var vehicle = await context.Vehicles.Include(v => v.Features).SingleOrDefaultAsync(v => v.Id == id);
+
+      if (vehicle == null)
+        return NotFound();
+
       mapper.Map<VehicleResource, Vehicle>(vehicleResource, vehicle);
       vehicle.LastUpdate = DateTime.Now;
 
@@ -55,6 +63,22 @@ namespace aspcore_angular.Controllers
       var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
       return Ok(result);
+    }
+
+    /// <summary>
+    /// Delete a vehicle Entry
+    /// </summary>
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteVehicle(int id)
+    {
+      var vehicle = await context.Vehicles.FindAsync(id);
+
+      if (vehicle == null)
+        return NotFound();
+
+      context.Remove(vehicle);
+      await context.SaveChangesAsync();
+      return Ok(id);
     }
   }
 }
